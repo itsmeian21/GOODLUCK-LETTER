@@ -1,0 +1,450 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&family=Great+Vibes&display=swap');
+
+:root {
+    --bg-dark: #1a1a2e;
+    --bg-light: #0f3460;
+    --primary-red: #e94560;
+    --accent-yellow: #f0e68c;
+    --text-light: #ffffff;
+    --envelope-body: #f7f3e9;
+    --envelope-flap: #e0d9cc;
+    --letter-paper: #fffaf0;
+    --button-hover: #c73049;
+    --shadow-light: rgba(0,0,0,0.2);
+    --shadow-medium: rgba(0,0,0,0.3);
+    --shadow-heavy: rgba(0,0,0,0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(45deg, var(--bg-dark), var(--bg-light));
+    color: var(--text-light);
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    perspective: 1000px;
+}
+
+/* =========================
+   STEPS
+========================= */
+
+.step {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 30px 20px;
+}
+
+.step.active {
+    display: flex;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.step:not(.active) {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.action-button {
+    padding: 12px 25px;
+    background-color: var(--primary-red);
+    color: var(--text-light);
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 10px var(--shadow-medium);
+    letter-spacing: 0.5px;
+}
+
+.action-button:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--shadow-heavy);
+}
+
+/* =========================
+   STEP 1
+========================= */
+
+.welcome-card {
+    text-align: center;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 30px var(--shadow-heavy);
+    max-width: 500px;
+    animation: fadeIn 1s ease-out;
+}
+
+.welcome-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: var(--accent-yellow);
+    text-shadow: 2px 2px 5px var(--shadow-medium);
+}
+
+.welcome-message {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* =========================
+   STEP 2 - ENVELOPE
+========================= */
+
+.envelope-container {
+    text-align: center;
+    animation: pulse 2s infinite;
+    cursor: pointer;
+}
+
+.envelope {
+    position: relative;
+    width: 320px;
+    height: 200px;
+}
+
+.envelope-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--envelope-body);
+    border-radius: 10px;
+    box-shadow: 0 8px 20px var(--shadow-medium);
+}
+
+.envelope-flap {
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    background-color: var(--envelope-flap);
+    top: 0;
+    left: 0;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top;
+    transition: transform 0.5s ease-in-out;
+    z-index: 2;
+}
+
+.envelope-front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--envelope-body);
+    top: 0;
+    left: 0;
+    clip-path: polygon(
+        0 100%,
+        100% 100%,
+        100% 50%,
+        50% 100%,
+        0 50%
+    );
+    z-index: 1;
+}
+
+.envelope-seal {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2U5NDU2MCI+PHBhdGggZD0iTTEyIDYuMjc1Yy01LjUwMy01LjgyOC0xNC40NDUgMi41NDctNi40NDUgOS42NDcgNC44MjcgNC44MjcgOS4xMjcgMi40NTcgMTIgMi41MjEgMi44NzMtLjA2NCA3LjE3MyAyLjMwMyAxMi0yLjUyMSAxMi03LjA4IDcuNjA4LTExLjQ4NSAyLjc1NS0xMS43OTJjLTcuOTk5LTcuMzk5LTMuMzk1LTkuNzE0LTYuNDQ1LTkuNjQ3eiIvPjwvc3ZnPg==');
+
+    background-size: cover;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+
+.envelope-container.open .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+.click-instruction {
+    margin-top: 25px;
+    font-size: 1.1rem;
+    color: var(--accent-yellow);
+    animation: bounce 1.5s infinite;
+}
+
+/* =========================
+   STEP 3 - LETTER
+========================= */
+
+.letter-container {
+    text-align: center;
+    opacity: 0;
+    transform: translateY(50px);
+    transition:
+        opacity 0.5s 0.5s ease,
+        transform 0.5s 0.5s ease;
+
+    width: 100%;
+    max-width: 600px;
+}
+
+.letter-container.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.letter {
+    width: 100%;
+    background-color: var(--letter-paper);
+    color: var(--bg-dark);
+    padding: 35px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px var(--shadow-medium);
+    line-height: 1.8;
+}
+
+.letter p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.letter p:first-child {
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.letter .action-button {
+    margin-top: 10px;
+}
+
+/* =========================
+   STEP 4 - FINAL MESSAGE
+========================= */
+
+#step4 {
+    align-items: flex-start;
+    min-height: 100vh;
+    height: auto;
+    padding: 50px 20px 80px;
+}
+
+.final-message-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.final-message {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    padding: 45px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    animation: fadeInMessage 1s ease-out;
+}
+
+.final-message h1 {
+    text-align: center;
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.5rem;
+    color: var(--accent-yellow);
+    margin-bottom: 35px;
+}
+
+.final-message p {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    margin-bottom: 25px;
+    color: var(--text-light);
+}
+
+.final-goodluck {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.25rem !important;
+    margin-top: 35px;
+}
+
+.signature {
+    text-align: center;
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem !important;
+    color: var(--accent-yellow) !important;
+    margin-top: 40px;
+    margin-bottom: 0 !important;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInMessage {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-10px);
+    }
+
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    .welcome-title {
+        font-size: 2.5rem;
+    }
+
+    .welcome-message {
+        font-size: 1rem;
+    }
+
+    .letter {
+        padding: 25px;
+    }
+
+    .letter p {
+        font-size: 1rem;
+    }
+
+    .envelope {
+        transform: scale(0.8);
+    }
+
+    .final-message {
+        padding: 30px;
+    }
+
+    .final-message h1 {
+        font-size: 2.8rem;
+    }
+
+    .final-message p {
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .welcome-card {
+        padding: 30px 20px;
+    }
+
+    .welcome-title {
+        font-size: 2.2rem;
+    }
+
+    .action-button {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+
+    .envelope {
+        transform: scale(0.7);
+    }
+
+    .letter {
+        padding: 20px;
+    }
+
+    .letter p {
+        font-size: 0.95rem;
+    }
+
+    .final-message {
+        padding: 25px 20px;
+        border-radius: 20px;
+    }
+
+    .final-message h1 {
+        font-size: 2.5rem;
+    }
+
+    .final-message p {
+        font-size: 0.95rem;
+        line-height: 1.8;
+    }
+
+    .final-goodluck {
+        font-size: 1.05rem !important;
+    }
+
+    .signature {
+        font-size: 1.7rem !important;
+    }
+}
